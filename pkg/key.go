@@ -1,4 +1,4 @@
-package cryptor
+package pkg
 
 import (
 	"crypto/sha256"

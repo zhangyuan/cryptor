@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	cryptor "cryptor/pkg"
+	"cryptor/pkg"
 
 	"github.com/urfave/cli/v2"
 )
@@ -17,10 +17,10 @@ func main() {
 				Aliases: []string{"e"},
 				Flags: []cli.Flag{
 					&cli.StringFlag{
-						Name:        "mode",
-						Usage:       "AES mode",
-						DefaultText: "gcm",
-						Aliases:     []string{"m"},
+						Name:    "mode",
+						Usage:   "AES mode",
+						Value:   "gcm",
+						Aliases: []string{"m"},
 					},
 					&cli.StringFlag{
 						Name:     "password",
@@ -49,11 +49,12 @@ func main() {
 				},
 				Usage: "Encrypt a file",
 				Action: func(cCtx *cli.Context) error {
+					mode := cCtx.String("mode")
 					password := cCtx.String("password")
 					salt := cCtx.String("salt")
 					inputFile := cCtx.String("input-file")
 					outputFile := cCtx.String("output-file")
-					return cryptor.Encrypt(password, salt, inputFile, outputFile)
+					return pkg.Encrypt(mode, password, salt, inputFile, outputFile)
 				},
 			},
 			{
@@ -61,10 +62,10 @@ func main() {
 				Aliases: []string{"d"},
 				Flags: []cli.Flag{
 					&cli.StringFlag{
-						Name:        "mode",
-						Usage:       "AES mode",
-						DefaultText: "gcm",
-						Aliases:     []string{"m"},
+						Name:    "mode",
+						Usage:   "AES mode",
+						Value:   "gcm",
+						Aliases: []string{"m"},
 					},
 					&cli.StringFlag{
 						Name:     "password",
@@ -93,11 +94,12 @@ func main() {
 				},
 				Usage: "Decrypt a file",
 				Action: func(cCtx *cli.Context) error {
+					mode := cCtx.String("mode")
 					password := cCtx.String("password")
 					salt := cCtx.String("salt")
 					inputFile := cCtx.String("input-file")
 					outputFile := cCtx.String("output-file")
-					return cryptor.Decrypt(password, salt, inputFile, outputFile)
+					return pkg.Decrypt(mode, password, salt, inputFile, outputFile)
 				},
 			},
 		},
