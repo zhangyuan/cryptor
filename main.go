@@ -11,6 +11,8 @@ import (
 
 func main() {
 	app := &cli.App{
+		Name:  "cryptor",
+		Usage: "encrypt and decrypt file",
 		Commands: []*cli.Command{
 			{
 				Name:    "encrypt",
